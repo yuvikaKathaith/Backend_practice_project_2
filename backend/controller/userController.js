@@ -74,3 +74,7 @@ export const login = async(req, res, next) => {
         user, token
     })
 }
+
+const getUser = async(req, res, next) => {
+    
+}
