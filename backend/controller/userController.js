@@ -24,7 +24,7 @@ export const register = async(req, res, next) => {
         )
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 12);
     const user = await User.create({name, email, phone, password: hashedPassword});
     res.status(200).json({
         success: true,
@@ -75,6 +75,28 @@ export const login = async(req, res, next) => {
     })
 }
 
-const getUser = async(req, res, next) => {
-    
+export const getUser = async(req, res, next) => {
+    const user = await User.findById(req.user._id);
+    if(!user){
+        return next(
+            res.status(400).json({
+                success: false,
+                message: "User not Found!"
+            })
+        )
+    }
+    res.status(200).json({
+        success: true,
+        user
+    })
+}
+
+export const logout = async(req, res, next) => {
+    res.status(200).cookie("token", "", {
+        httpOnly: true,
+        expires: new Date(Date.now())
+    }).json({
+        success: true,
+        message: "User logged out"
+    })
 }
