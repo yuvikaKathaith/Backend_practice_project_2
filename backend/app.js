@@ -3,6 +3,7 @@ import { config } from "dotenv"
 import dBConnection from "./database/dBConnection.js";
 import userRouter from "./router/userRouter.js";
 import cookieParser from "cookie-parser";
+import taskRouter from "./router/taskRouter.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/task', taskRouter);
 
 dBConnection();
 
