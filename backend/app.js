@@ -4,17 +4,18 @@ import dBConnection from "./database/dBConnection.js";
 import userRouter from "./router/userRouter.js";
 import cookieParser from "cookie-parser";
 import taskRouter from "./router/taskRouter.js";
+import cors from "cors"
 
 const app = express();
 
 config({path: './config/config.env'});
 
 //backend frontend connection 
-app.cors({
+app.use(cors({
     origin: [process.env.FRONTEND_URL],
     methods: ["GET", "PUT", "POST", "DELETE"],
     credentials: true
-})
+}))
 
 // to access cookies
 app.use(cookieParser());
