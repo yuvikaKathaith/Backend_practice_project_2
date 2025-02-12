@@ -20,7 +20,7 @@ export const createTask = async(req, res, next) => {
     
 }
 
-export const getUserTasks = async(req, res, next) => {
+export const getUserTask = async(req, res, next) => {
     const tasks = await Task.find({createdBy: req.user._id});
     if(!tasks){
         return next(
@@ -36,7 +36,7 @@ export const getUserTasks = async(req, res, next) => {
     })
 }
 
-export const deleteUserTasks = async(req, res, next) => {
+export const deleteUserTask = async(req, res, next) => {
     const task = await Task.findById(req.params.id);
     if(!task){
         return next(
@@ -52,3 +52,29 @@ export const deleteUserTasks = async(req, res, next) => {
         message: "Task Deleted!"
     })
 }
+
+export const updateTask = async(req, res, next) => {
+    let task = await Task.find(req.params._id);
+    if(!task){
+        return next(
+            res.status(400).json({
+                success: false,
+                message: "Task Not Found!"
+            })
+        )
+    }
+    const { title, description } = req.body;
+    task = await Task.findByIdAndUpdate(
+        req.params.id, 
+        { title, description },
+        {
+            new: true,
+            runValidators: true,
+        }
+    )
+    res.status(200).json({
+        success: true, 
+        message: "Task Updated!",
+        task
+    })
+}   

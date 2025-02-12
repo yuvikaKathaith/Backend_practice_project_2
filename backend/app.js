@@ -9,6 +9,13 @@ const app = express();
 
 config({path: './config/config.env'});
 
+//backend frontend connection 
+app.cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    credentials: true
+})
+
 // to access cookies
 app.use(cookieParser());
 // They make req.body accessible when handling API requests. Without them, Express won’t understand the request body properly.
