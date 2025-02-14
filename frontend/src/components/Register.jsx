@@ -8,7 +8,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = async(req, res, next) => {
+  const handleRegister = async(e) => {
+    e.preventDefault();
     try{
       const { data } = await axios.post(
         "http://localhost:4000/api/v1/user/register", 
@@ -27,7 +28,9 @@ const Register = () => {
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border-t-4 border-[#E76F51]">
         <h3 className="text-2xl font-semibold text-center text-[#4A5568] mb-6">Create an Account</h3>
 
-        <form className="space-y-4">
+        <form className="space-y-4"
+          onSubmit={handleRegister}
+        >
           <div>
             <label className="block text-[#4A5568] font-medium">Your Name</label>
             <input
