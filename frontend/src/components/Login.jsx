@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from "react";
+import axios from "axios";
 import toast from "react-hot-toast"
-import axios from "axios"
 
 const Login = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async(e) => {
     e.preventDefault();
@@ -21,7 +21,6 @@ const Login = () => {
       toast.error(error.response.data.message);
     }
   }
-
   return (
     <section>
       <div className="flex items-center justify-center min-h-screen bg-[#F9F5EB] p-6">
@@ -42,6 +41,7 @@ const Login = () => {
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E76F51] bg-gray-50"
               />
             </div>
+
             <div>
               <label className="block text-[#4A5568] font-medium">Your Password</label>
               <input
@@ -64,7 +64,7 @@ const Login = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
